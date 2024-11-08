@@ -29,9 +29,11 @@ const shuffle = topics => topics.sort(() => Math.random() - 0.5);
  */
 const typeText = (chatContent, strIndex) => {
     if (strIndex >= chatContent.length) {
+        cursorElement.style.animation = 'blink 0.8s step-end infinite';
         return;
     }
 
+    cursorElement.style.animation = 'none';
     chatContentsElement.textContent += chatContent.charAt(strIndex);
     strIndex++;
     setTimeout(() => typeText(chatContent, strIndex), 25);
