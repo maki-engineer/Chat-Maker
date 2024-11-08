@@ -39,10 +39,18 @@ const typeText = (chatContent, strIndex) => {
     setTimeout(() => typeText(chatContent, strIndex), 25);
 }
 
+const updateProgressBar = () => {
+    const progressBarElement = document.getElementById('progress_bar');
+    const progressPer = ((i + 1) / topicList.length) * 100;
+
+    progressBarElement.style.width = `${progressPer}%`;
+}
+
 const topicList = shuffle(topics);
 
 startBtnElement.addEventListener('click', () => {
     const chatContent = topicList[0];
+    updateProgressBar();
     setTimeout(() => typeText(chatContent, 0), 300);
 
     startBtnElement.style.visibility = 'hidden';
@@ -53,6 +61,7 @@ nextBtnElement.addEventListener('click', () => {
     i++;
     chatContentsElement.textContent = '';
     const chatContent = topicList[i];
+    updateProgressBar();
     setTimeout(() => typeText(chatContent, 0), 300);
 
     if (i === 1) {
@@ -68,6 +77,7 @@ prevBtnElement.addEventListener('click', () => {
     i--;
     chatContentsElement.textContent = '';
     const chatContent = topicList[i];
+    updateProgressBar();
     setTimeout(() => typeText(chatContent, 0), 300);
 
     if (i === 0) {
