@@ -3,18 +3,45 @@
 import { topics } from './topics.js';
 
 const chatContentsElement = document.getElementById('chat_contents');
+const cursorElement = document.getElementById('cursor');
 const startBtnElement = document.getElementById('start_button');
 const prevBtnElement = document.getElementById('prev_button');
 const nextBtnElement = document.getElementById('next_button');
 
+let i = 0;
+
+/**
+ * 配列内の要素をシャッフル
+ *
+ * @param {string} topics
+ *
+ * @returns {void}
+ */
 const shuffle = topics => topics.sort(() => Math.random() - 0.5);
+
+/**
+ * 文字を1文字ずつ入力
+ *
+ * @param {string} chatContent
+ * @param {number} strIndex
+ *
+ * @returns {void}
+ */
+const typeText = (chatContent, strIndex) => {
+    if (strIndex >= chatContent.length) {
+        return;
+    }
+
+    chatContentsElement.textContent += chatContent.charAt(strIndex);
+    strIndex++;
+    setTimeout(() => typeText(chatContent, strIndex), 25);
+}
 
 const topicList = shuffle(topics);
 
-let i = 0;
-
 startBtnElement.addEventListener('click', () => {
-    chatContentsElement.textContent = topicList[0];
+    const chatContent = topicList[0];
+    setTimeout(() => typeText(chatContent, 0), 300);
 
     startBtnElement.style.visibility = 'hidden';
     nextBtnElement.style.visibility = 'visible';
@@ -22,7 +49,9 @@ startBtnElement.addEventListener('click', () => {
 
 nextBtnElement.addEventListener('click', () => {
     i++;
-    chatContentsElement.textContent = topicList[i];
+    chatContentsElement.textContent = '';
+    const chatContent = topicList[i];
+    setTimeout(() => typeText(chatContent, 0), 300);
 
     if (i === 1) {
         prevBtnElement.style.visibility = 'visible';
@@ -35,7 +64,9 @@ nextBtnElement.addEventListener('click', () => {
 
 prevBtnElement.addEventListener('click', () => {
     i--;
-    chatContentsElement.textContent = topicList[i];
+    chatContentsElement.textContent = '';
+    const chatContent = topicList[i];
+    setTimeout(() => typeText(chatContent, 0), 300);
 
     if (i === 0) {
         prevBtnElement.style.visibility = 'hidden';

@@ -73,6 +73,10 @@ body {
     user-select: none;
 }
 
+.no_link {
+    animation: none;
+}
+
 @keyframes blink {
     50% {
         opacity: 0;
