@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>雑談メーカー</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js"></script>
 </head>
 
 <body>
@@ -15,7 +14,9 @@
             <h1 id="title">雑談メーカー</h1>
             <p id="description">【スタート】ボタンを押すとお題が表示されます。</p>
             <div id="terminal">
-                <p id="chat_contents">あ</p>
+                <span id="dollar_mark">$</span>
+                <!-- 27文字ぐらいまでならターミナル内に収まる -->
+                <p id="chat_contents"></p>
                 <span id="cursor">|</span>
             </div>
             <div id="button_list">
@@ -25,5 +26,6 @@
             </div>
         </div>
     </section>
+    <script src="js/script.js" type="module"></script>
 </body>
 </html>
