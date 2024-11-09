@@ -1,0 +1,27 @@
+@media screen and (max-width: 1220px) {
+    #chat_maker_block {
+        width: 90%;
+        height: auto;
+        padding: 20px;
+    }
+
+    #title {
+        font-size: 36px;
+    }
+
+    #description {
+        font-size: 16px;
+    }
+
+    #form_input {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    #submit_button {
+        width: 100px;
+        max-width: 200px;
+        padding: 12px 0;
+        font-size: 20px;
+    }
+}
