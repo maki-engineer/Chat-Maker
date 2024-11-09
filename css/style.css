@@ -1,6 +1,7 @@
 body {
     margin: 0px;
     color: #444444;
+    font-family: 'Noto Sans JP', sans-serif;
 }
 
 #main_contents {
@@ -149,4 +150,29 @@ body {
 
 #next_button {
     visibility: hidden;
+}
+
+#sub_contents {
+    display: flex;
+    flex-direction: column;
+    width: 1200px;
+    margin: 0px auto;
+}
+
+.paragraph {
+    margin-bottom: 40px;
+}
+
+.sub_title {
+    font-size: 35px;
+    user-select: none;
+}
+
+.sub_description {
+    font-size: 20px;
+    user-select: none;
+}
+
+#link {
+    color: rgb(0, 191, 255);
 }
