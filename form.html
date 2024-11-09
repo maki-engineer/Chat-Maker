@@ -7,12 +7,84 @@
     <title>雑談メーカー</title>
     <meta name="description" content="会社の忘年会やアイスブレイクなどで話すための話題を提供します。">
     <link rel="icon" href="favicon.ico">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/form_style.css">
     <meta name="robots" content="noindex">
 </head>
 
 <body>
-    <section id="form_contents"></section>
-    <script src="js/script.js" type="module"></script>
+    <section id="main_contents">
+        <div id="chat_maker_block">
+            <h1 id="title">お題募集箱</h1>
+            <p id="description">【送信】ボタンを押すと入力したお題が送信されます。</p>
+
+            <div id="form_contents">
+                <input id="form_input" type="text" placeholder="ここに追加してほしいお題を入力してください" name="chat_contents">
+            </div>
+
+            <div id="submit_button">送信</div>
+        </div>
+    </section>
+
+    <!-- EmailJS読み込み -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <!-- EmailJS初期化 -->
+    <script type="text/javascript">
+        (() => {
+            // https://dashboard.emailjs.com/admin/account
+            emailjs.init('GrkKLhY730RAWubQq');
+        })();
+    </script>
+
+    <!-- 送信されたらメール送信 -->
+    <script type="text/javascript">
+        window.onload = () => {
+            const formInputElement = document.getElementById('form_input');
+            let count = 0;
+
+            document.getElementById('submit_button').addEventListener('click', () => {
+                if (formInputElement.value.length === 0) {
+                    alert('何も入力されていません！');
+                    return;
+                }
+
+                if (formInputElement.value.length > 50) {
+                    alert('文字数が多すぎます！40文字程度に収まるようにしてください。');
+                    formInputElement.value = '';
+                    return;
+                }
+
+                // SQLインジェクション && XSS対策
+                const injectionCheck = /['";\-\-]/g;
+                const scriptingCheck = /[<>]/g;
+
+                if (injectionCheck.test(formInputElement.value) || scriptingCheck.test(formInputElement.value)) {
+                    alert('入力できない文字が含まれています！');
+                    formInputElement.value = '';
+                    return;
+                }
+
+                if (count > 5) {
+                    alert('一度に送信できるのは5回までです！時間をおいてから再度お試しください。');
+                    formInputElement.value = '';
+                    return;
+                }
+
+                emailjs.send('service_lckz3cm', 'template_f7dgcqi', {
+                    chat_contents: formInputElement.value,
+                })
+                    .then(() => {
+                        console.log('SUCCESS!');
+                        formInputElement.value = '';
+                    }, error => {
+                        console.log('FAILED...', error);
+                        formInputElement.value = '';
+                    });
+
+                    alert('送信が完了しました！');
+                    count++;
+            });
+        }
+    </script>
 </body>
 </html>
