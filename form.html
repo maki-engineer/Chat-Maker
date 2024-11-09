@@ -64,8 +64,8 @@
                     return;
                 }
 
-                if (count > 5) {
-                    alert('一度に送信できるのは5回までです！時間をおいてから再度お試しください。');
+                if (count > 2) {
+                    alert('一度に送信できる回数を超えました！時間をおいてから再度お試しください。');
                     formInputElement.value = '';
                     return;
                 }
@@ -83,6 +83,12 @@
 
                     alert('送信が完了しました！');
                     count++;
+            });
+
+            formInputElement.addEventListener('keydown', event => {
+                if (event.key === 'Enter') {
+                    document.getElementById('submit_button').click();
+                }
             });
         }
     </script>
