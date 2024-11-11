@@ -10,6 +10,7 @@ const nextBtnElement = document.getElementById('next_button');
 
 let i = 0;
 let typingInProgress = false;
+let buttonClicked = false;
 
 /**
  * 配列内の要素をシャッフル
@@ -32,6 +33,7 @@ const typeText = (chatContent, strIndex) => {
     if (strIndex >= chatContent.length) {
         cursorElement.style.animation = 'blink 0.8s step-end infinite';
         typingInProgress = false;
+        buttonClicked = false;
         return;
     }
 
@@ -52,9 +54,11 @@ const updateProgressBar = () => {
 const topicList = shuffle(topics);
 
 startBtnElement.addEventListener('click', () => {
-    if (typingInProgress) {
+    if (typingInProgress || buttonClicked) {
         return;
     }
+
+    buttonClicked = true;
 
     const chatContent = topicList[0];
     updateProgressBar();
@@ -65,9 +69,11 @@ startBtnElement.addEventListener('click', () => {
 });
 
 nextBtnElement.addEventListener('click', () => {
-    if (typingInProgress) {
+    if (typingInProgress || buttonClicked) {
         return;
     }
+
+    buttonClicked = true;
 
     i++;
     chatContentsElement.textContent = '';
@@ -85,9 +91,11 @@ nextBtnElement.addEventListener('click', () => {
 });
 
 prevBtnElement.addEventListener('click', () => {
-    if (typingInProgress) {
+    if (typingInProgress || buttonClicked) {
         return;
     }
+
+    buttonClicked = true;
 
     i--;
     chatContentsElement.textContent = '';
