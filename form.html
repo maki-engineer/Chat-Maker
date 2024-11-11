@@ -87,6 +87,10 @@
             });
 
             formInputElement.addEventListener('keydown', event => {
+                if (event.isComposing || event.keyCode === 229) {
+                    return;
+                }
+
                 if (event.key === 'Enter') {
                     document.getElementById('submit_button').click();
                 }
