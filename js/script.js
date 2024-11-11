@@ -9,6 +9,7 @@ const prevBtnElement = document.getElementById('prev_button');
 const nextBtnElement = document.getElementById('next_button');
 
 let i = 0;
+let typingInProgress = false;
 
 /**
  * 配列内の要素をシャッフル
@@ -30,9 +31,11 @@ const shuffle = topics => topics.sort(() => Math.random() - 0.5);
 const typeText = (chatContent, strIndex) => {
     if (strIndex >= chatContent.length) {
         cursorElement.style.animation = 'blink 0.8s step-end infinite';
+        typingInProgress = false;
         return;
     }
 
+    typingInProgress = true;
     cursorElement.style.animation = 'none';
     chatContentsElement.textContent += chatContent.charAt(strIndex);
     strIndex++;
@@ -49,6 +52,10 @@ const updateProgressBar = () => {
 const topicList = shuffle(topics);
 
 startBtnElement.addEventListener('click', () => {
+    if (typingInProgress) {
+        return;
+    }
+
     const chatContent = topicList[0];
     updateProgressBar();
     setTimeout(() => typeText(chatContent, 0), 300);
@@ -58,6 +65,10 @@ startBtnElement.addEventListener('click', () => {
 });
 
 nextBtnElement.addEventListener('click', () => {
+    if (typingInProgress) {
+        return;
+    }
+
     i++;
     chatContentsElement.textContent = '';
     const chatContent = topicList[i];
@@ -74,6 +85,10 @@ nextBtnElement.addEventListener('click', () => {
 });
 
 prevBtnElement.addEventListener('click', () => {
+    if (typingInProgress) {
+        return;
+    }
+
     i--;
     chatContentsElement.textContent = '';
     const chatContent = topicList[i];
